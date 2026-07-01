@@ -44,10 +44,15 @@ Inicia el proceso automatizado de reserva.
 - **Cuerpo (JSON - Opcional)**:
   ```json
   {
-    "dryRun": true
+    "dryRun": true,
+    "dni": "12345678A",
+    "password": "mi_contraseña",
+    "time": "09:00 - 10:00"
   }
   ```
-  *Nota: Si se envía `"dryRun": true`, el script hará todo el flujo de reserva (incluido el inicio de sesión, selección de hora, aplicación de descuento Carnet Joven y marcaje de normativa), pero se detendrá justo antes de confirmar el pago y la reserva final. Esto sirve para validar el flujo de forma segura.*
+  *Nota:*
+  - *Si se envía `"dryRun": true`, el script hará todo el flujo de reserva pero se detendrá justo antes de confirmar el pago y la reserva final para validación segura.*
+  - *Los parámetros `dni`, `password` y `time` son opcionales. Si se omiten en el cuerpo de la petición, se utilizarán los valores configurados por defecto en las variables de entorno (`GYM_DNI`, `GYM_PASSWORD`, `TARGET_TIME`) del servidor.*
 
 - **Respuesta Exitosa (JSON)**:
   ```json

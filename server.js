@@ -48,12 +48,26 @@ app.post('/reservar', checkAuth, async (req, res) => {
     });
   }
 
+  const dni = req.body?.dni || process.env.GYM_DNI;
+  const password = req.body?.password || process.env.GYM_PASSWORD;
+  const time = req.body?.time || process.env.TARGET_TIME;
+
+  if (!dni || !password || !time) {
+    return res.status(400).json({
+      ok: false,
+      error: 'Faltan parámetros requeridos: dni, password o time (deben pasarse en el body o configurarse en el servidor)'
+    });
+  }
+
   isRunning = true;
 
   const dryRunFromBody = req.body?.dryRun;
 
   const env = {
     ...process.env,
+    GYM_DNI: dni,
+    GYM_PASSWORD: password,
+    TARGET_TIME: time,
     DRY_RUN:
       typeof dryRunFromBody === 'boolean'
         ? String(dryRunFromBody)
