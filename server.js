@@ -63,15 +63,19 @@ app.post('/reservar', checkAuth, async (req, res) => {
 
   const dryRunFromBody = req.body?.dryRun;
 
+  let dryRunVal = process.env.DRY_RUN || 'true';
+  if (typeof dryRunFromBody === 'boolean') {
+    dryRunVal = String(dryRunFromBody);
+  } else if (typeof dryRunFromBody === 'string') {
+    dryRunVal = dryRunFromBody.trim().toLowerCase() === 'false' ? 'false' : 'true';
+  }
+
   const env = {
     ...process.env,
     GYM_DNI: dni,
     GYM_PASSWORD: password,
     TARGET_TIME: time,
-    DRY_RUN:
-      typeof dryRunFromBody === 'boolean'
-        ? String(dryRunFromBody)
-        : process.env.DRY_RUN || 'true'
+    DRY_RUN: dryRunVal
   };
 
   console.log('Iniciando reserva...');
