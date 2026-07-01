@@ -1,0 +1,5 @@
+node_modules
+.env
+screenshots
+.git
+recorded-test.spec.js

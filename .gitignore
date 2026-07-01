@@ -1,0 +1,6 @@
+.env
+node_modules
+screenshots
+recorded-test.spec.js
+test-results
+*.log
