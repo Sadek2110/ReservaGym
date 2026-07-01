@@ -14,8 +14,6 @@ let isRunning = false;
 
 function checkAuth(req, res, next) {
   const authHeader = req.headers.authorization;
-  console.log('Received authHeader:', authHeader);
-  console.log('Server API_KEY:', API_KEY);
 
   if (!API_KEY) {
     return res.status(500).json({
